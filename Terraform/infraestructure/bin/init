@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+set -ex
+ENV=$1
+terraform init -backend-config="backend-${ENV}.hcl" -reconfigure

@@ -1,0 +1,15 @@
+namespace: dev-nginx
+resources:
+  - ../../base
+
+commonLabels:
+  env: dev
+
+patches:
+  - target:
+      kind: Deployment
+      name: nginx-deployment
+    patch: |
+      - op: replace
+        path: /spec/replicas
+        value: 1

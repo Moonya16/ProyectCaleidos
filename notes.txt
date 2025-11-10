@@ -1,0 +1,25 @@
+#inicio de sesión con token
+
+aws sts assume-role `
+    --role-arn arn:aws:iam::917972781642:role/DEVOPS-0000-BASE-ALL-ROLE-00-ADMINISTRATOR `
+    --role-session-name Dev `
+    --serial-number arn:aws:iam::100344733245:mfa/JUrciaDev `
+    --token-code 991168 `
+    --profile default
+
+#para instalar las metricas
+
+ kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
+
+#Para las pruebas de carga
+
+
+kubectl exec -n proyect-dev -it nginx-deployment-74b54c5b85-267gh -- sh
+/ # apk add --no-cache stress-ng
+/ # stress-ng --cpu 2 --timeout 120s
+
+Para terminar el cluster
+
+kubectl scale deployment nginx-deployment -n proyect-dev --replicas=0
+
+escalar el cluster a 0 también 

@@ -1,0 +1,17 @@
+# k8s/nginx/overlays/dev/kustomization.yaml
+namespace: proyect-dev
+
+resources:
+  - ../../base
+
+commonLabels:
+  env: dev
+
+patches:
+  - target:
+      kind: Deployment
+      name: nginx-deployment
+    patch: |
+      - op: replace
+        path: /spec/replicas
+        value: 1
