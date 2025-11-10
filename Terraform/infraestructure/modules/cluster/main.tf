@@ -101,8 +101,8 @@ module "eks_node_group" {
   node_instance_type = ["t3.micro"]
   node_volume_size   = 20
 
-  desired_capacity = 0
-  min_size         = 0
+  desired_capacity = 1
+  min_size         = 1
   max_size         = 2
 
   launch_template_id = aws_launch_template.eks_nodes.id

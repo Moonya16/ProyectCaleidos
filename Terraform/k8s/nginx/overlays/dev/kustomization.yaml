@@ -1,4 +1,6 @@
-namespace: dev-nginx
+# k8s/nginx/overlays/dev/kustomization.yaml
+namespace: proyect-dev
+
 resources:
   - ../../base
 

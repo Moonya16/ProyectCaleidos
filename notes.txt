@@ -4,19 +4,24 @@ aws sts assume-role `
     --role-arn arn:aws:iam::917972781642:role/DEVOPS-0000-BASE-ALL-ROLE-00-ADMINISTRATOR `
     --role-session-name Dev `
     --serial-number arn:aws:iam::100344733245:mfa/JUrciaDev `
-    --token-code 991168 `
+    --token-code 534889 `
     --profile default
 
 #para instalar las metricas
 
  kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
+ http://a11c66ccb50bb47bdb26d83fe9e4f351-233865045.us-east-1.elb.amazonaws.com/
+ kubectl apply -k ./k8s/nginx/overlays/dev
+
 
 #Para las pruebas de carga
 
 
-kubectl exec -n proyect-dev -it nginx-deployment-74b54c5b85-267gh -- sh
-/ # apk add --no-cache stress-ng
-/ # stress-ng --cpu 2 --timeout 120s
+kubectl exec -it -n proyect-dev nginx-deployment-74b54c5b85-267gh -- sh -c "
+  apk add --no-cache stress-ng >/dev/null && \
+  echo '🔥 Starting stress test on pod $(hostname): 2 CPUs for 120s...' && \
+  stress-ng --cpu 2 --timeout 120s --metrics-brief
+"
 
 Para terminar el cluster
 
