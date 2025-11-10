@@ -60,7 +60,7 @@ terraform/
 
 1. **Terraform** crea:
    - VPC, subnets privadas, security groups.
-   - Cluster EKS y Node Group administrado (t3.micro).
+   - Cluster EKS y Node Group administrado (t3.medium). Escalado a medium para mayor manejo de carga y eficiencia
 
 2. **Despliegue de NGINX**
    ```bash
@@ -74,14 +74,18 @@ terraform/
 
 4. **Simulación de carga**
    ```bash
-   kubectl run http-load -n proyect-dev --image=alpine/curl --restart=Never -- \
-   sh -c "while true; do curl -s http://nginx-service.proyect-dev.svc.cluster.local > /dev/null; done"
+   kubectl exec -it -n proyect-dev nginx-deployment-f957869cc-2dkh9 -- sh 
+   #Dentro del pod
+   apk add --no-cache stress-ng >/dev/null
+   stress-ng --cpu 2 --timeout 120s --metrics-brief
+
+   #Para ver procesos activos (a ver si ya termino stress-ng)
+   ps aux
    ```
 
 5. **Monitoreo de escalamiento**
    ```bash
-   kubectl run http-load -n proyect-dev --image=alpine/curl --restart=Never -- \
-   sh -c "while true; do curl -s http://nginx-service.proyect-dev.svc.cluster.local > /dev/null; done"
+   kubectl get hpa -n proyect-dev
    ```
 
 5. **Escalamiento Manual**
