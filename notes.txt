@@ -4,7 +4,7 @@ aws sts assume-role `
     --role-arn arn:aws:iam::917972781642:role/DEVOPS-0000-BASE-ALL-ROLE-00-ADMINISTRATOR `
     --role-session-name Dev `
     --serial-number arn:aws:iam::100344733245:mfa/JUrciaDev `
-    --token-code 534889 `
+    --token-code 321416 `
     --profile default
 
 #para instalar las metricas

@@ -98,7 +98,7 @@ module "eks_node_group" {
   node_group_name      = var.cluster_name
   cluster_subnet_ids   = var.cluster_subnet_ids
 
-  node_instance_type = ["t3.micro"]
+  node_instance_type = ["t3.medium"]
   node_volume_size   = 20
 
   desired_capacity = 1
